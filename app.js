@@ -1,5 +1,5 @@
 const { useState, useEffect } = React;
-const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, Label } = Recharts;
+const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, Label } = window.Recharts;
 
 const BudgetTracker = () => {
   const [startAmount, setStartAmount] = useState(15000);
