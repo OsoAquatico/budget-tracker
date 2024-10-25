@@ -4,58 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budget Tracker</title>
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/recharts@2.1.12/umd/Recharts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react@17/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/recharts@2.7.2/umd/Recharts.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <style>
-        body { 
-            margin: 0; 
-            padding: 20px; 
-            font-family: Arial, sans-serif;
-            background-color: #f3f4f6; 
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        input[type="number"] { 
-            width: 100%; 
-            padding: 8px; 
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            background: white;
-        }
-        th, td { 
-            padding: 8px; 
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #f8f9fa;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #2563eb;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-4">
         <div id="root"></div>
     </div>
-    <script type="text/babel" src="app.js"></script>
+    <script type="text/babel" defer src="app.js"></script>
 </body>
 </html>
