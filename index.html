@@ -17,29 +17,105 @@
         function BudgetTracker() {
             const [startAmount, setStartAmount] = React.useState(15000);
             const [targetAmount, setTargetAmount] = React.useState(2500);
+            const [rows, setRows] = React.useState([]);
+
+            React.useEffect(() => {
+                const dailyChange = (targetAmount - startAmount) / 31;
+                const newRows = Array.from({ length: 32 }, (_, index) => ({
+                    day: index,
+                    forecast: startAmount + (dailyChange * index),
+                    plus: 0,
+                    minus: 0
+                }));
+                setRows(newRows);
+            }, [startAmount, targetAmount]);
+
+            const formatNumber = (num) => {
+                return new Intl.NumberFormat('sv-SE', {
+                    style: 'currency',
+                    currency: 'SEK'
+                }).format(num);
+            };
 
             return (
                 <div className="container">
-                    <h1>Budget Tracker</h1>
-                    <div className="row">
+                    <h1 className="mb-4">Budget Tracker</h1>
+                    <div className="row mb-4">
                         <div className="col-6">
-                            <label>Startbelopp</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                value={startAmount}
-                                onChange={(e) => setStartAmount(Number(e.target.value))}
-                            />
+                            <div className="form-group">
+                                <label htmlFor="startAmount" className="form-label">Startbelopp</label>
+                                <input
+                                    id="startAmount"
+                                    name="startAmount"
+                                    type="number"
+                                    className="form-control"
+                                    value={startAmount}
+                                    onChange={(e) => setStartAmount(Number(e.target.value))}
+                                />
+                            </div>
                         </div>
                         <div className="col-6">
-                            <label>Målbelopp</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                value={targetAmount}
-                                onChange={(e) => setTargetAmount(Number(e.target.value))}
-                            />
+                            <div className="form-group">
+                                <label htmlFor="targetAmount" className="form-label">Målbelopp</label>
+                                <input
+                                    id="targetAmount"
+                                    name="targetAmount"
+                                    type="number"
+                                    className="form-control"
+                                    value={targetAmount}
+                                    onChange={(e) => setTargetAmount(Number(e.target.value))}
+                                />
+                            </div>
                         </div>
+                    </div>
+                    
+                    <div className="table-responsive">
+                        <table className="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Dag</th>
+                                    <th>Prognos</th>
+                                    <th>Plus</th>
+                                    <th>Minus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {rows.map((row, index) => (
+                                    <tr key={row.day}>
+                                        <td>{row.day}</td>
+                                        <td>{formatNumber(row.forecast)}</td>
+                                        <td>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                id={`plus-${index}`}
+                                                name={`plus-${index}`}
+                                                value={row.plus}
+                                                onChange={(e) => {
+                                                    const newRows = [...rows];
+                                                    newRows[index].plus = Number(e.target.value) || 0;
+                                                    setRows(newRows);
+                                                }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                id={`minus-${index}`}
+                                                name={`minus-${index}`}
+                                                value={row.minus}
+                                                onChange={(e) => {
+                                                    const newRows = [...rows];
+                                                    newRows[index].minus = Number(e.target.value) || 0;
+                                                    setRows(newRows);
+                                                }}
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             );
